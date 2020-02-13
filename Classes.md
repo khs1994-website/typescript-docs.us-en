@@ -150,7 +150,7 @@ new Animal("Cat").#name; // Property '#name' is not accessible outside class 'An
 ```
 
 This syntax is built into the JavaScript runtime and can have better guarantees about the isolation of each private field.
-Right now, the best documentation for these private fields is in the TypeScript 3.8 [release notes](https://devblogs.microsoft.com/typescript/announcing-typescript-3-8-beta/#type-only-imports-exports).
+Right now, the best documentation for these private fields is in the TypeScript 3.8 [release notes](https://devblogs.microsoft.com/typescript/announcing-typescript-3-8-beta/#ecmascript-private-fields).
 
 ## Understanding TypeScript's `private`
 
@@ -462,7 +462,7 @@ class Greeter {
 
 let greeter: Greeter;
 greeter = new Greeter("world");
-console.log(greeter.greet()); // "Hello, world""
+console.log(greeter.greet()); // "Hello, world"
 ```
 
 Here, when we say `let greeter: Greeter`, we're using `Greeter` as the type of instances of the class `Greeter`.
