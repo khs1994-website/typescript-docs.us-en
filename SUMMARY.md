@@ -44,6 +44,7 @@
   * [TypeScript 3.5](release notes/TypeScript 3.5.md)
   * [TypeScript 3.6](release notes/TypeScript 3.6.md)
   * [TypeScript 3.7](release notes/TypeScript 3.7.md)
+  * [TypeScript 3.8](release notes/TypeScript 3.8.md)
 - Tutorials
   * [Angular](tutorials/Angular.md)
   * [ASP.NET Core](tutorials/ASP.NET Core.md)
