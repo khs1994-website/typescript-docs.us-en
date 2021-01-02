@@ -4,7 +4,7 @@ on:
       - sync
   pull_request:
   schedule:
-    - cron: '0 0 */1 * *'
+    - cron: '0 0 */1 * *'    
 
 name: Sync
 
@@ -19,22 +19,22 @@ jobs:
       - name: Fetch upstream
         id: upstream
         run: |
-          git clone --depth=1 ${GIT_URL} TypeScript-Handbook
-          UPSTREAM_COMMIT_SHA=`git -C TypeScript-Handbook log --abbrev-commit --pretty="%h" -1`
+          git clone --depth=1 -b v2 ${GIT_URL} TypeScript-Website
+          UPSTREAM_COMMIT_SHA=`git -C TypeScript-Website log --abbrev-commit --pretty="%h" -1`
           echo "::set-output name=UPSTREAM_COMMIT_SHA::${UPSTREAM_COMMIT_SHA}"
         env:
-          GIT_URL: https://github.com/microsoft/TypeScript-Handbook
+          GIT_URL: https://github.com/microsoft/TypeScript-Website
       - name: Generate SUMMARY
         env:
-          SRC_FOLDER: TypeScript-Handbook/pages
-          GITBOOK_TITLE: "[TypeScript 英文文档](https://github.com/microsoft/TypeScript-Handbook)"
+          SRC_FOLDER: TypeScript-Website/packages/documentation/copy/en
+          GITBOOK_TITLE: "[TypeScript 英文文档](https://github.com/microsoft/TypeScript-Website/tree/v2/packages/documentation/copy/en)"
         run: |
           set -x
           mkdir -p ${SRC_FOLDER}/.github/workflows
           cp -a .github/workflows/gitbook.yaml ${SRC_FOLDER}/.github/workflows/
           cp book.json ${SRC_FOLDER}
           cd ${SRC_FOLDER}
-          cp tutorials/'TypeScript in 5 minutes.md' README.md
+          cp tutorials/'TypeScript Tooling in 5 minutes.md' README.md
           npm init -f
           npm install gitbook-summary
           npx book sm -t "${GITBOOK_TITLE}" -i node_modules
@@ -48,7 +48,7 @@ jobs:
           PCIT_GIT_TOKEN: ${{ secrets.PCIT_GIT_TOKEN }}
           PCIT_GIT_URL: github.com/${{ github.repository }}
           PCIT_KEEP_HISTORY: "true"
-          PCIT_LOCAL_DIR: TypeScript-Handbook/pages
-          PCIT_MESSAGE: Sync from microsoft/TypeScript-Handbook@${{ steps.upstream.outputs.UPSTREAM_COMMIT_SHA }} by PCIT
+          PCIT_LOCAL_DIR: TypeScript-Website/packages/documentation/copy/en
+          PCIT_MESSAGE: Sync from microsoft/TypeScript-Website@${{ steps.upstream.outputs.UPSTREAM_COMMIT_SHA }} by PCIT
           PCIT_TARGET_BRANCH: master
           PCIT_USERNAME: khs1994
