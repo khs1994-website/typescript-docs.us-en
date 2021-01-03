@@ -1,3 +1,10 @@
+---
+title: Migrating from JavaScript
+layout: docs
+permalink: /docs/handbook/migrating-from-javascript.html
+oneline: How to migrate from JavaScript to TypeScript
+---
+
 TypeScript doesn't exist in a vacuum.
 It was built with the JavaScript ecosystem in mind, and a lot of JavaScript exists today.
 Converting a JavaScript codebase over to TypeScript is, while somewhat tedious, usually not challenging.
@@ -6,10 +13,10 @@ We assume you've read enough of the handbook to write new TypeScript code.
 
 If you're looking to convert a React project, we recommend looking at the [React Conversion Guide](https://github.com/Microsoft/TypeScript-React-Conversion-Guide#typescript-react-conversion-guide) first.
 
-# Setting up your Directories
+## Setting up your Directories
 
 If you're writing in plain JavaScript, it's likely that you're running your JavaScript directly,
-  where your `.js` files are in a `src`, `lib`, or `dist` directory, and then ran as desired.
+where your `.js` files are in a `src`, `lib`, or `dist` directory, and then ran as desired.
 
 If that's the case, the files that you've written are going to be used as inputs to TypeScript, and you'll run the outputs it produces.
 During our JS to TS migration, we'll need to separate our input files to prevent TypeScript from overwriting them.
@@ -20,7 +27,7 @@ In this case, you might already have a folder structure like this set up.
 
 From this point on, we're going to assume that your directory is set up something like this:
 
-```text
+```
 projectRoot
 ├── src
 │   ├── file1.js
@@ -31,21 +38,19 @@ projectRoot
 
 If you have a `tests` folder outside of your `src` directory, you might have one `tsconfig.json` in `src`, and one in `tests` as well.
 
-# Writing a Configuration File
+## Writing a Configuration File
 
 TypeScript uses a file called `tsconfig.json` for managing your project's options, such as which files you want to include, and what sorts of checking you want to perform.
 Let's create a bare-bones one for our project:
 
 ```json
 {
-    "compilerOptions": {
-        "outDir": "./built",
-        "allowJs": true,
-        "target": "es5"
-    },
-    "include": [
-        "./src/**/*"
-    ]
+  "compilerOptions": {
+    "outDir": "./built",
+    "allowJs": true,
+    "target": "es5"
+  },
+  "include": ["./src/**/*"]
 }
 ```
 
@@ -66,12 +71,12 @@ Even at this point you can get some great benefits from TypeScript understanding
 If you open up an editor like [VS Code](https://code.visualstudio.com) or [Visual Studio](https://visualstudio.com), you'll see that you can often get some tooling support like completion.
 You can also catch certain bugs with options like:
 
-* `noImplicitReturns` which prevents you from forgetting to return at the end of a function.
-* `noFallthroughCasesInSwitch` which is helpful if you never want to forget a `break` statement between `case`s in a `switch` block.
+- `noImplicitReturns` which prevents you from forgetting to return at the end of a function.
+- `noFallthroughCasesInSwitch` which is helpful if you never want to forget a `break` statement between `case`s in a `switch` block.
 
 TypeScript will also warn about unreachable code and labels, which you can disable with `allowUnreachableCode` and `allowUnusedLabels` respectively.
 
-# Integrating with Build Tools
+## Integrating with Build Tools
 
 You might have some more build steps in your pipeline.
 Perhaps you concatenate something to each of your files.
@@ -79,60 +84,58 @@ Each build tool is different, but we'll do our best to cover the gist of things.
 
 ## Gulp
 
-If you're using Gulp in some fashion, we have a tutorial on [using Gulp](./Gulp.md) with TypeScript, and integrating with common build tools like Browserify, Babelify, and Uglify.
+If you're using Gulp in some fashion, we have a tutorial on [using Gulp](/docs/handbook/gulp.html) with TypeScript, and integrating with common build tools like Browserify, Babelify, and Uglify.
 You can read more there.
 
 ## Webpack
 
 Webpack integration is pretty simple.
-You can use `awesome-typescript-loader`, a TypeScript loader, combined with `source-map-loader` for easier debugging.
+You can use `ts-loader`, a TypeScript loader, combined with `source-map-loader` for easier debugging.
 Simply run
 
 ```shell
-npm install awesome-typescript-loader source-map-loader
+npm install ts-loader source-map-loader
 ```
 
 and merge in options from the following into your `webpack.config.js` file:
 
 ```js
 module.exports = {
-    entry: "./src/index.ts",
-    output: {
-        filename: "./dist/bundle.js",
-    },
+  entry: "./src/index.ts",
+  output: {
+    filename: "./dist/bundle.js",
+  },
 
-    // Enable sourcemaps for debugging webpack's output.
-    devtool: "source-map",
+  // Enable sourcemaps for debugging webpack's output.
+  devtool: "source-map",
 
-    resolve: {
-        // Add '.ts' and '.tsx' as resolvable extensions.
-        extensions: ["", ".webpack.js", ".web.js", ".ts", ".tsx", ".js"]
-    },
+  resolve: {
+    // Add '.ts' and '.tsx' as resolvable extensions.
+    extensions: ["", ".webpack.js", ".web.js", ".ts", ".tsx", ".js"],
+  },
 
-    module: {
-        loaders: [
-            // All files with a '.ts' or '.tsx' extension will be handled by 'awesome-typescript-loader'.
-            { test: /\.tsx?$/, loader: "awesome-typescript-loader" }
-        ],
+  module: {
+    rules: [
+      // All files with a '.ts' or '.tsx' extension will be handled by 'ts-loader'.
+      { test: /\.tsx?$/, loader: "ts-loader" },
 
-        preLoaders: [
-            // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
-            { test: /\.js$/, loader: "source-map-loader" }
-        ]
-    },
+      // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
+      { test: /\.js$/, loader: "source-map-loader" },
+    ],
+  },
 
-    // Other options...
+  // Other options...
 };
 ```
 
-It's important to note that awesome-typescript-loader will need to run before any other loader that deals with `.js` files.
+It's important to note that ts-loader will need to run before any other loader that deals with `.js` files.
 
-The same goes for [ts-loader](https://github.com/TypeStrong/ts-loader), another TypeScript loader for Webpack.
+The same goes for [awesome-typescript-loader](https://github.com/TypeStrong/ts-loader), another TypeScript loader for Webpack.
 You can read more about the differences between the two [here](https://github.com/s-panferov/awesome-typescript-loader#differences-between-ts-loader).
 
-You can see an example of using Webpack in our [tutorial on React and Webpack](./React%20&%20Webpack.md).
+You can see an example of using Webpack in our [tutorial on React and Webpack](/docs/handbook/react-&-webpack.html).
 
-# Moving to TypeScript Files
+## Moving to TypeScript Files
 
 At this point, you're probably ready to start using TypeScript files.
 The first step is to rename one of your `.js` files to `.ts`.
@@ -148,7 +151,7 @@ You should think of these the same way you'd think of red squiggles in an editor
 TypeScript will still translate your code, just like Word will still let you print your documents.
 
 If that sounds too lax for you, you can tighten that behavior up.
-If, for instance, you *don't* want TypeScript to compile to JavaScript in the face of errors, you can use the `noEmitOnError` option.
+If, for instance, you _don't_ want TypeScript to compile to JavaScript in the face of errors, you can use the `noEmitOnError` option.
 In that sense, TypeScript has a dial on its strictness, and you can turn that knob up as high as you want.
 
 If you plan on using the stricter settings that are available, it's best to turn them on now (see [Getting Stricter Checks](#getting-stricter-checks) below).
@@ -195,9 +198,9 @@ foo.doStuff();
 or the following RequireJS/AMD code:
 
 ```js
-define(["foo"], function(foo) {
-    foo.doStuff();
-})
+define(["foo"], function (foo) {
+  foo.doStuff();
+});
 ```
 
 then you would write the following TypeScript code:
@@ -211,7 +214,7 @@ foo.doStuff();
 ### Getting Declaration Files
 
 If you started converting over to TypeScript imports, you'll probably run into errors like `Cannot find module 'foo'.`.
-The issue here is that you likely don't have *declaration files* to describe your library.
+The issue here is that you likely don't have _declaration files_ to describe your library.
 Luckily this is pretty easy.
 If TypeScript complains about a package like `lodash`, you can just write
 
@@ -230,16 +233,16 @@ TypeScript allows you to use top-level export statements.
 For instance, if you exported a function like so:
 
 ```js
-module.exports.feedPets = function(pets) {
-    // ...
-}
+module.exports.feedPets = function (pets) {
+  // ...
+};
 ```
 
 you could write that out as the following:
 
 ```ts
 export function feedPets(pets) {
-    // ...
+  // ...
 }
 ```
 
@@ -255,7 +258,7 @@ You might have previously written that like so:
 
 ```js
 function foo() {
-    // ...
+  // ...
 }
 module.exports = foo;
 ```
@@ -264,7 +267,7 @@ In TypeScript, you can model this with the `export =` construct.
 
 ```ts
 function foo() {
-    // ...
+  // ...
 }
 export = foo;
 ```
@@ -276,16 +279,29 @@ Typically, this is a bug, but in some cases, you might have declared a function 
 
 ```js
 function myCoolFunction() {
-    if (arguments.length == 2 && !Array.isArray(arguments[1])) {
-        var f = arguments[0];
-        var arr = arguments[1];
-        // ...
-    }
+  if (arguments.length == 2 && !Array.isArray(arguments[1])) {
+    var f = arguments[0];
+    var arr = arguments[1];
     // ...
+  }
+  // ...
 }
 
-myCoolFunction(function(x) { console.log(x) }, [1, 2, 3, 4]);
-myCoolFunction(function(x) { console.log(x) }, 1, 2, 3, 4);
+myCoolFunction(
+  function (x) {
+    console.log(x);
+  },
+  [1, 2, 3, 4]
+);
+myCoolFunction(
+  function (x) {
+    console.log(x);
+  },
+  1,
+  2,
+  3,
+  4
+);
 ```
 
 In this case, we need to use TypeScript to tell any of our callers about the ways `myCoolFunction` can be called using function overloads.
@@ -294,12 +310,12 @@ In this case, we need to use TypeScript to tell any of our callers about the way
 function myCoolFunction(f: (x: number) => void, nums: number[]): void;
 function myCoolFunction(f: (x: number) => void, ...nums: number[]): void;
 function myCoolFunction() {
-    if (arguments.length == 2 && !Array.isArray(arguments[1])) {
-        var f = arguments[0];
-        var arr = arguments[1];
-        // ...
-    }
+  if (arguments.length == 2 && !Array.isArray(arguments[1])) {
+    var f = arguments[0];
+    var arr = arguments[1];
     // ...
+  }
+  // ...
 }
 ```
 
@@ -322,15 +338,18 @@ If you instead moved the declarations into the object literal themselves, you'd 
 
 ```ts
 let options = {
-    color: "red",
-    volume: 11
+  color: "red",
+  volume: 11,
 };
 ```
 
 You could also define the type of `options` and add a type assertion on the object literal.
 
 ```ts
-interface Options { color: string; volume: number }
+interface Options {
+  color: string;
+  volume: number;
+}
 
 let options = {} as Options;
 options.color = "red";
@@ -342,7 +361,7 @@ Alternatively, you can just say `options` has the type `any` which is the easies
 ### `any`, `Object`, and `{}`
 
 You might be tempted to use `Object` or `{}` to say that a value can have any property on it because `Object` is, for most purposes, the most general type.
-However **`any` is actually the type you want to use** in those situations, since it's the most *flexible* type.
+However **`any` is actually the type you want to use** in those situations, since it's the most _flexible_ type.
 
 For instance, if you have something that's typed as `Object` you won't be able to call methods like `toLowerCase()` on it.
 Being more general usually means you can do less with a type, but `any` is special in that it is the most general type while still allowing you to do anything with it.
@@ -371,7 +390,7 @@ That means anything declared with the type `number` could be `null` or `undefine
 Since `null` and `undefined` are such a frequent source of bugs in JavaScript and TypeScript, TypeScript has the `strictNullChecks` option to spare you the stress of worrying about these issues.
 
 When `strictNullChecks` is enabled, `null` and `undefined` get their own types called `null` and `undefined` respectively.
-Whenever anything is *possibly* `null`, you can use a union type with the original type.
+Whenever anything is _possibly_ `null`, you can use a union type with the original type.
 So for instance, if something could be a `number` or `null`, you'd write the type out as `number | null`.
 
 If you ever have a value that TypeScript thinks is possibly `null`/`undefined`, but you know better, you can use the postfix `!` operator to tell it otherwise.
@@ -379,7 +398,7 @@ If you ever have a value that TypeScript thinks is possibly `null`/`undefined`, 
 ```ts
 declare var foo: string[] | null;
 
-foo.length;  // error - 'foo' is possibly 'null'
+foo.length; // error - 'foo' is possibly 'null'
 
 foo!.length; // okay - 'foo!' just has type 'string[]'
 ```
@@ -393,22 +412,22 @@ For instance, imagine a `Point` class, and imagine a function that we wish to ad
 
 ```ts
 class Point {
-    constructor(public x, public y) {}
-    getDistance(p: Point) {
-        let dx = p.x - this.x;
-        let dy = p.y - this.y;
-        return Math.sqrt(dx ** 2 + dy ** 2);
-    }
+  constructor(public x, public y) {}
+  getDistance(p: Point) {
+    let dx = p.x - this.x;
+    let dy = p.y - this.y;
+    return Math.sqrt(dx ** 2 + dy ** 2);
+  }
 }
 // ...
 
 // Reopen the interface.
 interface Point {
-    distanceFromOrigin(point: Point): number;
+  distanceFromOrigin(): number;
 }
-Point.prototype.distanceFromOrigin = function(point: Point) {
-    return this.getDistance({ x: 0, y: 0});
-}
+Point.prototype.distanceFromOrigin = function () {
+  return this.getDistance({ x: 0, y: 0 });
+};
 ```
 
 This has the same problems we mentioned above - we could easily have misspelled `getDistance` and not gotten an error.
@@ -417,7 +436,7 @@ When that option is set, TypeScript will issue an error when `this` is used with
 The fix is to use a `this`-parameter to give an explicit type in the interface or in the function itself:
 
 ```ts
-Point.prototype.distanceFromOrigin = function(this: Point, point: Point) {
-    return this.getDistance({ x: 0, y: 0});
-}
+Point.prototype.distanceFromOrigin = function (this: Point) {
+  return this.getDistance({ x: 0, y: 0 });
+};
 ```
