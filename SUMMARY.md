@@ -36,6 +36,7 @@
   - Type Manipulation
     * [Creating Types From Types](handbook-v2/Type Manipulation/_Creating Types from Types.md)
     * [Conditional Types](handbook-v2/Type Manipulation/Conditional Types.md)
+    * [Generics](handbook-v2/Type Manipulation/Generics.md)
     * [Indexed Access Types](handbook-v2/Type Manipulation/Indexed Access Types.md)
     * [Keyof Type Operator](handbook-v2/Type Manipulation/Keyof Type Operator.md)
     * [Mapped Types](handbook-v2/Type Manipulation/Mapped Types.md)
