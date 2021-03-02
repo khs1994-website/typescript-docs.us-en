@@ -111,6 +111,7 @@
   * [TypeScript 3.9](release-notes/TypeScript 3.9.md)
   * [TypeScript 4.0](release-notes/TypeScript 4.0.md)
   * [TypeScript 4.1](release-notes/TypeScript 4.1.md)
+  * [TypeScript 4.2](release-notes/TypeScript 4.2.md)
 - Tutorials
   * [Angular](tutorials/Angular.md)
   * [ASP.NET Core](tutorials/ASP.NET Core.md)
