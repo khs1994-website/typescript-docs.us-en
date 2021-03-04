@@ -355,7 +355,7 @@ function f(x = 10) {
 ```
 
 Now in the body of `f`, `x` will have type `number` because any `undefined` argument will be replaced with `10`.
-Note that when a parameter is optional, callers can always pass `undefined`, as this simply simualtes a "missing" argument:
+Note that when a parameter is optional, callers can always pass `undefined`, as this simply simulates a "missing" argument:
 
 ```ts twoslash
 declare function f(x?: number): void;
@@ -540,7 +540,7 @@ Callers can invoke this with either sort of value, and as an added bonus, we don
 
 ### Declaring `this` in a Function
 
-TypeScript will infer what the `this` function should be in a function via code flow analysis, for example in the following:
+TypeScript will infer what the `this` should be in a function via code flow analysis, for example in the following:
 
 ```ts twoslash
 const user = {
