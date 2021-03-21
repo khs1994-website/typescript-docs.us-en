@@ -3,7 +3,6 @@ title: Mapped Types
 layout: docs
 permalink: /docs/handbook/2/mapped-types.html
 oneline: "Generating types by re-using an existing type."
-beta: true
 ---
 
 When you don't want to repeat yourself, sometimes a type needs to be based on another type.
@@ -115,8 +114,8 @@ You can filter out keys by producing `never` via a conditional type:
 
 ```ts twoslash
 // Remove the 'kind' property
-type RemoveKindField<T> = {
-    [K in keyof T as Exclude<K, "kind">]: T[K]
+type RemoveKindField<Type> = {
+    [Property in keyof Type as Exclude<Property, "kind">]: Type[Property]
 };
 
 interface Circle {
@@ -132,7 +131,7 @@ type KindlessCircle = RemoveKindField<Circle>;
 
 Mapped types work well with other features in this type manipulation section, for example here is [a mapped type using a conditional type](/docs/handbook/2/conditional-types.html) which returns either a `true` or `false` depending on whether an object has the property `pii` set to the literal `true`:
 
-```ts
+```ts twoslash
 type ExtractPII<Type> = {
   [Property in keyof Type]: Type[Property] extends { pii: true } ? true : false;
 };

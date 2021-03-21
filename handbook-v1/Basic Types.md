@@ -2,8 +2,15 @@
 title: Basic Types
 layout: docs
 permalink: /docs/handbook/basic-types.html
-oneline: "Step one in learning TypeScript: The basic types."
+oneline: "Step two in learning TypeScript: The basic types."
 handbook: "true"
+deprecated_by: /docs/handbook/2/everyday-types.html
+# prettier-ignore
+deprecation_redirects: [
+  never, /docs/handbook/2/narrowing.html#the-never-type,
+  unknown, /docs/handbook/2/functions.html#unknown,
+  void, /docs/handbook/2/functions.html#void
+]
 ---
 
 For programs to be useful, we need to be able to work with some of the simplest units of data: numbers, strings, structures, boolean values, and the like.
@@ -339,7 +346,7 @@ declare function create(o: object | null): void;
 // OK
 create({ prop: 0 });
 create(null);
-create(undefined); // Remember, undefined is not a subtype of null
+create(undefined); // with `--strictNullChecks` flag enabled, undefined is not a subtype of null
 
 create(42);
 create("string");

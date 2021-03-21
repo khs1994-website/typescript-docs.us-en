@@ -3,7 +3,6 @@ title: Modules
 layout: docs
 permalink: /docs/handbook/2/modules.html
 oneline: "How JavaScript handles communicating across file boundaries."
-beta: true
 ---
 
 JavaScript has a long history of different ways to handle modularizing code.
@@ -51,7 +50,7 @@ There are three main things to consider when writing module-based code in TypeSc
 
 - **Syntax**: What syntax do I want to use to import and export things?
 - **Module Resolution**: What is the relationship between module names (or paths) and files on disk?
-- **Module Output Target**: What should the should my emitted JavaScript module look like?
+- **Module Output Target**: What should my emitted JavaScript module look like?
 
 ### ES Module Syntax
 

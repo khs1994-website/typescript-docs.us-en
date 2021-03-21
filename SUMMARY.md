@@ -25,12 +25,10 @@
 - Handbook V 1
   * [Basic Types](handbook-v1/Basic Types.md)
   * [Classes](handbook-v1/Classes.md)
-  * [Enums](handbook-v1/Enums.md)
   * [Functions](handbook-v1/Functions.md)
   * [Generics](handbook-v1/Generics.md)
   * [Interfaces](handbook-v1/Interfaces.md)
   * [Literal Types](handbook-v1/Literal Types.md)
-  * [The Type Script Handbook](handbook-v1/The Handbook.md)
   * [Unions And Intersection Types](handbook-v1/Unions and Intersections.md)
 - Handbook V 2
   - Type Manipulation
@@ -49,6 +47,7 @@
   * [More On Functions](handbook-v2/More on Functions.md)
   * [Narrowing](handbook-v2/Narrowing.md)
   * [Object Types](handbook-v2/Object Types.md)
+  * [The Type Script Handbook](handbook-v2/The Handbook.md)
   * [Type Declarations](handbook-v2/Type Declarations.md)
   * [Understanding Errors](handbook-v2/Understanding Errors.md)
 - Javascript
@@ -67,6 +66,7 @@
   * [Advanced Types](reference/Advanced Types.md)
   * [Declaration Merging](reference/Declaration Merging.md)
   * [Decorators](reference/Decorators.md)
+  * [Enums](reference/Enums.md)
   * [Iterators And Generators](reference/Iterators and Generators.md)
   * [JSX](reference/JSX.md)
   * [Mixins](reference/Mixins.md)

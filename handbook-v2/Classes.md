@@ -3,7 +3,6 @@ title: Classes
 layout: docs
 permalink: /docs/handbook/2/classes.html
 oneline: "How classes work in TypeScript"
-beta: true
 ---
 
 <blockquote class='bg-reading'>
@@ -127,7 +126,11 @@ g.name = "also not ok";
 
 ### Constructors
 
-[Background Reading: Constructor (MDN)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/constructor)
+<blockquote class='bg-reading'>
+   <p>Background Reading:<br />
+   <a href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/constructor'>Constructor (MDN)</a><br/>
+   </p>
+</blockquote>
 
 Class constructors are very similar to functions.
 You can add parameters with type annotations, default values, and overloads:
@@ -184,7 +187,11 @@ Forgetting to call `super` is an easy mistake to make in JavaScript, but TypeScr
 
 ### Methods
 
-> [Background Reading: Method definitions (MDN)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Method_definitions)
+<blockquote class='bg-reading'>
+   <p>Background Reading:<br />
+   <a href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Method_definitions'>Method definitions</a><br/>
+   </p>
+</blockquote>
 
 A function property on a class is called a _method_.
 Methods can use all the same type annotations as functions and constructors:
@@ -244,7 +251,7 @@ TypeScript has some special inference rules for accessors:
 - If no `set` exists, the property is automatically `readonly`
 - The type of the setter parameter is inferred from the return type of the getter
 - If the setter parameter has a type annotation, it must match the return type of the getter
-- Getters and setters must have the same [[Member Visibility]]
+- Getters and setters must have the same [Member Visibility](#member-visibility)
 
 It is not possible to have accessors with different types for getting and setting.
 
@@ -252,7 +259,7 @@ If you have a getter without a setter, the field is automatically `readonly`
 
 ### Index Signatures
 
-Classes can declare index signatures; these work the same as [[Index Signatures]] for other object types:
+Classes can declare index signatures; these work the same as [Index Signatures](#index-signatures) for other object types:
 
 ```ts twoslash
 class MyClass {
@@ -337,7 +344,11 @@ c.y = 10;
 
 ### `extends` Clauses
 
-> [Background Reading: extends keyword (MDN)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/extends)
+<blockquote class='bg-reading'>
+   <p>Background Reading:<br />
+   <a href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/extends'>extends keyword (MDN)</a><br/>
+   </p>
+</blockquote>
 
 Classes may `extend` from a base class.
 A derived class has all the properties and methods of its base class, and also define additional members.
@@ -366,7 +377,11 @@ d.woof(3);
 
 #### Overriding Methods
 
-> [Background reading: super keyword (MDN)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/super)
+<blockquote class='bg-reading'>
+   <p>Background Reading:<br />
+   <a href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/super'>super keyword (MDN)</a><br/>
+   </p>
+</blockquote>
 
 A derived class can also override a base class field or property.
 You can use the `super.` syntax to access base class methods.
@@ -705,11 +720,15 @@ const s = new MySafe();
 console.log(s.secretKey);
 ```
 
-If you need to protect values in your class from malicious actors, you should use mechanisms that offer hard runtime privacy, such as closures, weak maps, or [[private fields]].
+If you need to protect values in your class from malicious actors, you should use mechanisms that offer hard runtime privacy, such as closures, weak maps, or [private fields](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/Private_class_fields).
 
 ## Static Members
 
-> [Background Reading: Static Members (MDN)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/static)
+<blockquote class='bg-reading'>
+   <p>Background Reading:<br />
+   <a href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/static'>Static Members (MDN)</a><br/>
+   </p>
+</blockquote>
 
 Classes may have `static` members.
 These members aren't associated with a particular instance of the class.
@@ -823,7 +842,11 @@ The `static` members of a generic class can never refer to the class's type para
 
 ## `this` at Runtime in Classes
 
-> [Background Reading: `this` keyword (MDN)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this)
+<blockquote class='bg-reading'>
+   <p>Background Reading:<br />
+   <a href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this'>this keyword (MDN)</a><br/>
+   </p>
+</blockquote>
 
 It's important to remember that TypeScript doesn't change the runtime behavior of JavaScript, and that JavaScript is somewhat famous for having some peculiar runtime behaviors.
 
@@ -854,7 +877,11 @@ TypeScript provides some ways to mitigate or prevent this kind of error.
 
 ### Arrow Functions
 
-> [Background Reading: Arrow functions (MDN)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions)
+<blockquote class='bg-reading'>
+   <p>Background Reading:<br />
+   <a href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions'>Arrow functions (MDN)</a><br/>
+   </p>
+</blockquote>
 
 If you have a function that will often be called in a way that loses its `this` context, it can make sense to use an arrow function property instead of a method definition:
 
@@ -1020,7 +1047,11 @@ console.log(a.z);
 
 ## Class Expressions
 
-> [Background reading: Class expressions (MDN)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/class)
+<blockquote class='bg-reading'>
+   <p>Background Reading:<br />
+   <a href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/class'>Class expressions (MDN)</a><br/>
+   </p>
+</blockquote>
 
 Class expressions are very similar to class declarations.
 The only real difference is that class expressions don't need a name, though we can refer to them via whatever identifier they ended up bound to:

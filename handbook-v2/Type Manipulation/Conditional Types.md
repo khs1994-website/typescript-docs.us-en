@@ -3,7 +3,6 @@ title: Conditional Types
 layout: docs
 permalink: /docs/handbook/2/conditional-types.html
 oneline: "Create types which act like if statements in the type system."
-beta: true
 ---
 
 At the heart of most useful programs, we have to make decisions based on input.
@@ -207,6 +206,17 @@ type Str = GetReturnType<(x: string) => string>;
 //   ^?
 
 type Bools = GetReturnType<(a: boolean, b: boolean) => boolean[]>;
+//   ^?
+```
+
+When inferring from a type with multiple call signatures (such as the type of an overloaded function), inferences are made from the _last_ signature (which, presumably, is the most permissive catch-all case). It is not possible to perform overload resolution based on a list of argument types.
+
+```ts twoslash
+declare function stringOrNum(x: string): number;
+declare function stringOrNum(x: number): string;
+declare function stringOrNum(x: string | number): string | number;
+
+type T1 = ReturnType<typeof stringOrNum>;
 //   ^?
 ```
 

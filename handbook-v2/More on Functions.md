@@ -3,7 +3,6 @@ title: More on Functions
 layout: docs
 permalink: /docs/handbook/2/functions.html
 oneline: "Learn about how Functions work in TypeScript."
-beta: true
 ---
 
 Functions are the basic building block of any application, whether they're local functions, imported from another module, or methods on a class.
@@ -135,12 +134,12 @@ function map<Input, Output>(arr: Input[], func: (arg: Input) => Output): Output[
   return arr.map(func);
 }
 
-// Parameter 'n' is of type 'number'
+// Parameter 'n' is of type 'string'
 // 'parsed' is of type 'number[]'
 const parsed = map(["1", "2", "3"], (n) => parseInt(n));
 ```
 
-Note that in this example, TypeScript could infer both the type of the `E` type parameter (from the given `string` array), as well as the type `O` based on the return value of the function expression.
+Note that in this example, TypeScript could infer both the type of the `Input` type parameter (from the given `string` array), as well as the `Output` type parameter based on the return value of the function expression (`number`).
 
 ### Constraints
 
@@ -174,7 +173,7 @@ There are few interesting things to note in this example.
 We allowed TypeScript to _infer_ the return type of `longest`.
 Return type inference also works on generic functions.
 
-Because we constrained `T` to `{ length: number }`, we were allowed to access the `.length` property of the `a` and `b` parameters.
+Because we constrained `Type` to `{ length: number }`, we were allowed to access the `.length` property of the `a` and `b` parameters.
 Without the type constraint, we wouldn't be able to access those properties because the values might have been some other type without a length property.
 
 The types of `longerArray` and `longerString` were inferred based on the arguments.
@@ -200,7 +199,7 @@ function minimumLength<Type extends { length: number }>(
 }
 ```
 
-It might look like this function is OK - `T` is constrained to `{ length: number }`, and the function either returns `T` or a value matching that constraint.
+It might look like this function is OK - `Type` is constrained to `{ length: number }`, and the function either returns `Type` or a value matching that constraint.
 The problem is that the function promises to return the _same_ kind of object as was passed in, not just _some_ object matching the constraint.
 If this code were legal, you could write code that definitely wouldn't work:
 
@@ -698,7 +697,12 @@ If need to accept an arbitrary function but don't intend to call it, the type `(
 
 ## Rest Parameters and Arguments
 
-**Background reading**: [Rest Parameters](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/rest_parameters) and [Spread Syntax](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax)
+<blockquote class='bg-reading'>
+   <p>Background Reading:<br />
+   <a href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/rest_parameters'>Rest Parameters</a><br/>
+   <a href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax'>Spread Syntax</a><br/>
+   </p>
+</blockquote>
 
 ### Rest Parameters
 
@@ -753,7 +757,12 @@ Using rest arguments may require turning on [`downlevelIteration`](/tsconfig/#do
 
 ## Parameter Destructuring
 
-> **Background reading**: [Destructuring Assignment](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment)
+
+<blockquote class='bg-reading'>
+   <p>Background Reading:<br />
+   <a href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment'>Destructuring Assignment</a><br/>
+   </p>
+</blockquote>
 
 You can use parameter destructuring to conveniently unpack objects provided as an argument into one or more local variables in the function body.
 In JavaScript, it looks like this:
